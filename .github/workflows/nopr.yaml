@@ -9,6 +9,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        prs=$(curl -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/repos/ImJasonH/nopr-2/pulls?state=open | grep "^    \"id\":" | cut -d':' -f2 | cut -d' ' -f2 | cut -d',' -f1)
-        echo open PRs: $prs
-
+        curl -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/repos/ImJasonH/nopr-2/pulls?state=open | \
+          grep "^    \"id\":" | cut -d':' -f2 | cut -d' ' -f2 | cut -d',' -f1 | \
+          xargs -I{} curl -X PATCH -H "Authorization: Bearer $GITHUB_TOKEN" -d '{"state":"closed"}' https://api.github.com/repos/ImJasonH/nopr-2/pulls/{}
