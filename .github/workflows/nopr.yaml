@@ -8,4 +8,4 @@ jobs:
     - name: Close Pull Request
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: echo $GITHUB_TOKEN
+      run: env
