@@ -14,3 +14,4 @@ jobs:
           grep "^    \"id\":" | cut -d':' -f2 | cut -d' ' -f2 | cut -d',' -f1)
         echo Open PRs: $prs
         # xargs -I{} curl -X PATCH -H "Authorization: Bearer $GITHUB_TOKEN" -d '{"state":"closed"}' https://api.github.com/repos/ImJasonH/nopr-2/pulls/{}
+	for p in $prs; do echo closing $p; done
