@@ -12,6 +12,6 @@ jobs:
         set -euxo pipefail
         prs=$(curl -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/repos/ImJasonH/nopr-2/pulls?state=open | \
           grep "^    \"id\":" | cut -d':' -f2 | cut -d' ' -f2 | cut -d',' -f1)
-	for p in $prs; do
+        for p in $prs; do
           curl -X PATCH -H "Authorization: Bearer $GITHUB_TOKEN" -d '{"state":"closed"}' https://api.github.com/repos/ImJasonH/nopr-2/pulls/$p
         done
