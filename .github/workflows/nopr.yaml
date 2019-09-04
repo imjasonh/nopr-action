@@ -1,0 +1,11 @@
+on: pull_request
+
+jobs:
+  close:
+    name: Close Pull Request
+    runs-on: ubuntu-latest
+    steps:
+    - uses: docker://alpine:3.8
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: echo $GITHUB_TOKEN
