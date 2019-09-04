@@ -8,4 +8,6 @@ jobs:
     - name: Close Pull Request
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: env
+      run: |
+        echo sha is $GITHUB_SHA
+        curl -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/repos/ImJasonH/nopr-2/commits/$GITHUB_SHA/pulls
