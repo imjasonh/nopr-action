@@ -8,4 +8,10 @@ jobs:
     - name: Close Pull Request
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: echo $GITHUB_TOKEN
+      run: |
+        # Find all open PRs, and close them.
+        set -euxo pipefail
+        prs=$(curl https://api.github.com/repos/ImJasonH/nopr-2/pulls?state=open | grep "^    \"number\": " | grep -Eo "([0-9]+)")
+        for p in $prs; do
+          curl -X PATCH -H "Authorization: Bearer $GITHUB_TOKEN" -d '{"state":"closed"}' https://api.github.com/repos/ImJasonH/nopr-2/pulls/$p
+        done
