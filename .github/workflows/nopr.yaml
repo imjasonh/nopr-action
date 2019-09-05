@@ -10,8 +10,11 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         # Find all open PRs, and close them.
+        env
+        echo ---
+        echo $GITHUB_REPOSITORY
         set -euxo pipefail
-        prs=$(curl https://api.github.com/repos/ImJasonH/nopr-action/pulls?state=open | grep "^    \"number\": " | grep -Eo "([0-9]+)")
+        prs=$(curl https://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=open | grep "^    \"number\": " | grep -Eo "([0-9]+)")
         for p in $prs; do
-          curl -X PATCH -H "Authorization: Bearer $GITHUB_TOKEN" -d '{"state":"closed"}' https://api.github.com/repos/ImJasonH/nopr-action/pulls/$p
+          curl -X PATCH -H "Authorization: Bearer $GITHUB_TOKEN" -d '{"state":"closed"}' https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/$p
         done
