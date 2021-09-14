@@ -1,6 +1,6 @@
 # No Pull Requests
 
-This repo contains a GitHub Actions workflow to automatically close all Pull Requests opened on the repo.
+This repo contains a GitHub Actions workflowtestteststes to automatically close all Pull Requests opened on the repo.
 
 ![Image of self-closing box](http://i.imgur.com/wQdS8RJ.gif)
 
