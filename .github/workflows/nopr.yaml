@@ -13,4 +13,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         # Find all open PRs, and close them.
-        gh pr list --state=open --json=number | jq '.[].number' | xargs gh pr close 
+        gh pr list --repo=${{ github.repository }} --state=open --json=number | jq '.[].number' | xargs gh pr close --repo=${{ github.repository }} -d
