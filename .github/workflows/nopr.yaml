@@ -10,6 +10,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         # Find all open PRs, and close them.
-        set -euxo pipefail
-        sudo apt-get update && sudo apt-get install jq
-        curl https://api.github.com/repos/$GITHUB_REPOSITORY/pulls?state=open | jq '.[].number' | xargs -I{} curl -X PATCH -H "Authorization: Bearer $GITHUB_TOKEN" -d '{"state":"closed"}' https://api.github.com/repos/$GITHUB_REPOSITORY/pulls/{}
+        gh pr list --state=open --json=number | jq '.[].number' | xargs gh pr close -d 
